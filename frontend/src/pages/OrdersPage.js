@@ -20,8 +20,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 import {
-  Plus, Search, MoreHorizontal, Pencil, Trash2, ShoppingBag, Upload, ImageIcon, X, CheckCircle, Clock, Truck, Instagram, ZoomIn,
+  Plus, Search, MoreHorizontal, Pencil, Trash2, ShoppingBag, Upload, ImageIcon, X, CheckCircle, Clock, Instagram, ZoomIn,
 } from 'lucide-react';
+
+const MASA_OPTIONS = ['XS', 'S', 'M', 'L', 'XL'];
 
 export default function OrdersPage() {
   const { user } = useAuth();
@@ -38,7 +40,6 @@ export default function OrdersPage() {
   const [formData, setFormData] = useState({
     client_id: '',
     total_price: '',
-    shipping_type: 'paid',
     product_photo: '',
     masa: '',
     notes: '',
@@ -144,7 +145,6 @@ export default function OrdersPage() {
     setFormData({
       client_id: '',
       total_price: '',
-      shipping_type: 'paid',
       product_photo: '',
       masa: '',
       notes: '',
@@ -157,7 +157,6 @@ export default function OrdersPage() {
     setFormData({
       client_id: order.client_id,
       total_price: String(order.total_price),
-      shipping_type: order.shipping_type,
       product_photo: order.product_photo || '',
       masa: order.masa || '',
       notes: order.notes || '',
@@ -223,18 +222,17 @@ export default function OrdersPage() {
         />
       </div>
 
-      {/* Table - Columns: FOTO, IG USERNAME, MASA first */}
+      {/* Table - Columns: IG USERNAME, FOTO, MASA first */}
       <Card className="bg-white border border-zinc-200 shadow-sm rounded-xl" data-testid="orders-table-card">
         <CardContent className="p-0">
           {filtered.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
-                  <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider">Foto</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider">IG Username</TableHead>
+                  <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider">Foto</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider">Masa</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider hidden sm:table-cell">Çmimi</TableHead>
-                  <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Transporti</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Statusi</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Data</TableHead>
                   <TableHead className="bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider w-12"></TableHead>
@@ -243,7 +241,23 @@ export default function OrdersPage() {
               <TableBody>
                 {filtered.map((order) => (
                   <TableRow key={order.id} className="hover:bg-zinc-50/50 transition-colors border-b border-zinc-100" data-testid={`order-row-${order.id}`}>
-                    {/* FOTO - clickable for zoom */}
+                    {/* IG USERNAME - first column */}
+                    <TableCell>
+                      <div>
+                        {order.client_ig ? (
+                          <p className="font-bold text-zinc-900 flex items-center gap-1.5">
+                            <Instagram className="w-3.5 h-3.5 text-orange-600" />
+                            @{order.client_ig}
+                          </p>
+                        ) : (
+                          <p className="font-medium text-zinc-900">{order.client_name}</p>
+                        )}
+                        {order.client_ig && (
+                          <p className="text-xs text-zinc-500">{order.client_name}</p>
+                        )}
+                      </div>
+                    </TableCell>
+                    {/* FOTO - clickable zoom */}
                     <TableCell>
                       {order.product_photo ? (
                         <button
@@ -267,43 +281,20 @@ export default function OrdersPage() {
                         </div>
                       )}
                     </TableCell>
-                    {/* IG USERNAME */}
-                    <TableCell>
-                      <div>
-                        {order.client_ig ? (
-                          <p className="font-bold text-zinc-900 flex items-center gap-1.5">
-                            <Instagram className="w-3.5 h-3.5 text-orange-600" />
-                            @{order.client_ig}
-                          </p>
-                        ) : (
-                          <p className="font-medium text-zinc-900">{order.client_name}</p>
-                        )}
-                        {order.client_ig && (
-                          <p className="text-xs text-zinc-500">{order.client_name}</p>
-                        )}
-                      </div>
-                    </TableCell>
                     {/* MASA */}
                     <TableCell>
-                      <span className="font-medium text-zinc-900">{order.masa || '-'}</span>
+                      {order.masa ? (
+                        <Badge variant="outline" className="bg-zinc-50 text-zinc-800 border-zinc-200 font-semibold">
+                          {order.masa}
+                        </Badge>
+                      ) : (
+                        <span className="text-zinc-300">-</span>
+                      )}
                     </TableCell>
                     <TableCell className="hidden sm:table-cell">
                       <span className="font-semibold text-zinc-900">
                         {order.total_price?.toLocaleString('sq-AL')} Lekë
                       </span>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      <Badge
-                        variant="outline"
-                        className={
-                          order.shipping_type === 'free'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-zinc-50 text-zinc-700 border-zinc-200'
-                        }
-                      >
-                        <Truck className="w-3 h-3 mr-1" />
-                        {order.shipping_type === 'free' ? 'Falas' : 'Me Pagesë'}
-                      </Badge>
                     </TableCell>
                     <TableCell className="hidden lg:table-cell">
                       <Badge
@@ -345,7 +336,6 @@ export default function OrdersPage() {
                           <DropdownMenuItem onClick={() => openEdit(order)} data-testid={`edit-order-${order.id}`}>
                             <Pencil className="w-4 h-4 mr-2" /> Ndrysho
                           </DropdownMenuItem>
-                          {/* Only admin can delete */}
                           {isAdmin && (
                             <DropdownMenuItem
                               onClick={() => { setDeletingOrder(order); setDeleteDialogOpen(true); }}
@@ -394,7 +384,7 @@ export default function OrdersPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Create/Edit Order Dialog */}
+      {/* Create/Edit Order Dialog - NO Transporti */}
       <Dialog open={dialogOpen} onOpenChange={(open) => { if (!open) resetForm(); setDialogOpen(open); }}>
         <DialogContent className="sm:max-w-lg" data-testid="order-dialog">
           <DialogHeader>
@@ -439,17 +429,10 @@ export default function OrdersPage() {
               />
               {previewUrl ? (
                 <div className="relative inline-block">
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="w-32 h-32 rounded-xl object-cover border border-zinc-200"
-                  />
+                  <img src={previewUrl} alt="Preview" className="w-32 h-32 rounded-xl object-cover border border-zinc-200" />
                   <button
                     type="button"
-                    onClick={() => {
-                      setPreviewUrl('');
-                      setFormData((prev) => ({ ...prev, product_photo: '' }));
-                    }}
+                    onClick={() => { setPreviewUrl(''); setFormData((prev) => ({ ...prev, product_photo: '' })); }}
                     className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-red-600 transition-colors"
                     data-testid="remove-photo-button"
                   >
@@ -476,16 +459,22 @@ export default function OrdersPage() {
               )}
             </div>
 
-            {/* Masa (Size) */}
+            {/* Masa - Dropdown XS to XL */}
             <div className="space-y-2">
               <Label className="text-zinc-700 font-medium">Masa</Label>
-              <Input
+              <Select
                 value={formData.masa}
-                onChange={(e) => setFormData((prev) => ({ ...prev, masa: e.target.value }))}
-                placeholder="psh: S, M, L, XL, 42, 44..."
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
-                data-testid="order-masa-input"
-              />
+                onValueChange={(val) => setFormData((prev) => ({ ...prev, masa: val }))}
+              >
+                <SelectTrigger className="border-zinc-200 focus:border-orange-500 rounded-lg bg-white h-10" data-testid="order-masa-select">
+                  <SelectValue placeholder="Zgjidhni masën" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MASA_OPTIONS.map((m) => (
+                    <SelectItem key={m} value={m} data-testid={`masa-${m}`}>{m}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Price */}
@@ -502,23 +491,6 @@ export default function OrdersPage() {
                 data-testid="order-price-input"
                 required
               />
-            </div>
-
-            {/* Shipping Type */}
-            <div className="space-y-2">
-              <Label className="text-zinc-700 font-medium">Transporti *</Label>
-              <Select
-                value={formData.shipping_type}
-                onValueChange={(val) => setFormData((prev) => ({ ...prev, shipping_type: val }))}
-              >
-                <SelectTrigger className="border-zinc-200 focus:border-orange-500 rounded-lg bg-white h-10" data-testid="order-shipping-select">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="paid" data-testid="shipping-paid">Me Pagesë</SelectItem>
-                  <SelectItem value="free" data-testid="shipping-free">Falas</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
 
             {/* Notes */}
