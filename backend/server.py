@@ -235,6 +235,7 @@ async def create_order(order_data: OrderCreate, user=Depends(get_current_user)):
         "total_price": order_data.total_price,
         "shipping_type": order_data.shipping_type,
         "product_photo": order_data.product_photo,
+        "masa": order_data.masa,
         "notes": order_data.notes,
         "status": "pending",
         "created_at": datetime.now(timezone.utc).isoformat()
