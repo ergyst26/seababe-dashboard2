@@ -1,0 +1,160 @@
+{
+  "project_name": "OrderFlow_Albania",
+  "design_philosophy": {
+    "identity": "The Atelier Manager",
+    "core_principles": [
+      "Tactile Utility: Interfaces should feel like physical tools (receipts, cards, ledgers).",
+      "Warm Efficiency: Avoid sterile 'admin' grays. Use warm neutrals and energetic accents.",
+      "Density with Breath: High information density in tables, but massive padding in containers.",
+      "Language First: All UI elements must be natively Albanian (no auto-translate feel)."
+    ],
+    "mood": "Organized, Bright, Tactile, Trustworthy"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit, sans-serif",
+      "body": "Inter, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl font-bold tracking-tight lg:text-5xl",
+      "h2": "text-3xl font-semibold tracking-tight",
+      "h3": "text-2xl font-semibold tracking-tight",
+      "body": "text-base leading-relaxed text-zinc-600",
+      "caption": "text-sm text-zinc-500 font-medium tracking-wide uppercase"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "name": "International Orange",
+        "hex": "#EA580C",
+        "tailwind": "orange-600",
+        "usage": "CTAs, Active States, Key Metrics"
+      },
+      "secondary": {
+        "name": "Deep Charcoal",
+        "hex": "#18181B",
+        "tailwind": "zinc-950",
+        "usage": "Headings, Strong Borders"
+      },
+      "background": {
+        "main": "#FAFAFA",
+        "surface": "#FFFFFF",
+        "subtle": "#F4F4F5"
+      },
+      "status": {
+        "success": "#10B981",
+        "error": "#EF4444",
+        "warning": "#F59E0B",
+        "info": "#3B82F6"
+      }
+    },
+    "rules": [
+      "NO GRADIENTS on buttons. Solid, high-contrast colors only.",
+      "Backgrounds should be 'Tinted Warm' (Zinc/Stone), not 'Cool Blue' (Slate).",
+      "Borders are mandatory for separation (1px solid zinc-200)."
+    ]
+  },
+  "layout_strategies": {
+    "container_style": "Bento Grid Mode B (High Density)",
+    "spacing": {
+      "container_padding": "p-6 md:p-10",
+      "element_gap": "gap-6",
+      "section_gap": "gap-12"
+    },
+    "surfaces": {
+      "cards": "bg-white border border-zinc-200 shadow-sm rounded-xl hover:shadow-md transition-all duration-200",
+      "sidebar": "bg-zinc-50 border-r border-zinc-200 w-64 hidden md:block",
+      "header": "bg-white/80 backdrop-blur-md border-b border-zinc-100 sticky top-0 z-50"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-orange-600 text-white hover:bg-orange-700 shadow-sm rounded-lg px-6 py-2.5 font-medium transition-transform active:scale-95",
+      "secondary": "bg-white text-zinc-900 border border-zinc-200 hover:bg-zinc-50 hover:border-zinc-300 shadow-sm rounded-lg px-6 py-2.5 font-medium",
+      "ghost": "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-lg px-4 py-2"
+    },
+    "inputs": {
+      "default": "border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg shadow-sm bg-white"
+    },
+    "tables": {
+      "style": "clean",
+      "header": "bg-zinc-50 text-zinc-500 font-medium text-xs uppercase tracking-wider",
+      "row": "hover:bg-zinc-50/50 transition-colors border-b border-zinc-100"
+    }
+  },
+  "visual_enhancers": {
+    "texture": "Use subtle noise overlays on empty states or sidebars to reduce digital sterility.",
+    "shadows": "Diffuse, large shadows: shadow-[0_8px_30px_rgb(0,0,0,0.04)].",
+    "borders": "Crisp 1px borders everywhere. No fuzzy edges."
+  },
+  "dictionary_albanian": {
+    "nav": {
+      "dashboard": "Pasqyra",
+      "clients": "Klientët",
+      "orders": "Porositë",
+      "settings": "Cilësimet",
+      "logout": "Dil"
+    },
+    "actions": {
+      "add_client": "Shto Klient",
+      "create_order": "Krijo Porosi",
+      "edit": "Ndrysho",
+      "delete": "Fshi",
+      "save": "Ruaj",
+      "cancel": "Anulo",
+      "upload_photo": "Ngarko Foto",
+      "search": "Kërko..."
+    },
+    "labels": {
+      "name": "Emri",
+      "surname": "Mbiemri",
+      "ig_name": "Emri IG",
+      "address": "Adresa",
+      "phone": "Numri i Telefonit",
+      "price": "Çmimi Total",
+      "shipping": "Transporti",
+      "product_photo": "Foto e Produktit",
+      "client_select": "Zgjidh Klientin",
+      "status": "Statusi"
+    },
+    "values": {
+      "paid": "Me Pagesë",
+      "free": "Falas",
+      "pending": "Në Pritje",
+      "completed": "E Përfunduar"
+    }
+  },
+  "image_assets": {
+    "placeholders": {
+      "product_default": "https://images.pexels.com/photos/16038191/pexels-photo-16038191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "user_avatar": "https://images.unsplash.com/photo-1586710743864-260430279452?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "login_bg": "https://images.unsplash.com/photo-1729952620303-4dc47fb5d93a?crop=entropy&cs=srgb&fm=jpg&q=85"
+    },
+    "usage_rules": "Use 'object-cover' for all images. Add 'rounded-md' or 'rounded-xl' strictly."
+  },
+  "universal_guidelines": [
+    "NEVER use gradients for text.",
+    "NEVER use generic 'blue' for primary actions. Use the specified Orange (#EA580C).",
+    "ALWAYS include 'data-testid' on interactive elements.",
+    "Use 'sonner' for toast notifications.",
+    "Ensure all text is in ALBANIAN as per the dictionary."
+  ],
+  "component_paths": {
+    "button": "@/components/ui/button",
+    "input": "@/components/ui/input",
+    "card": "@/components/ui/card",
+    "table": "@/components/ui/table",
+    "dialog": "@/components/ui/dialog",
+    "select": "@/components/ui/select",
+    "toast": "@/components/ui/sonner"
+  },
+  "instructions_to_main_agent": [
+    "1. Setup the 'Outfit' and 'Inter' fonts in index.css.",
+    "2. Configure tailwind.config.js to add the 'International Orange' color as primary.",
+    "3. Implement the Auth layout using a split screen (Image Left, Form Right).",
+    "4. Build the Dashboard using the Bento Grid layout.",
+    "5. Ensure the 'Client' and 'Order' forms use Shadcn Form components with Zod validation (translated errors)."
+  ]
+}
