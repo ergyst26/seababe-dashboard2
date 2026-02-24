@@ -187,7 +187,7 @@ export default function OrdersPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin w-8 h-8 border-2 border-orange-600 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -203,7 +203,7 @@ export default function OrdersPage() {
         </div>
         <Button
           onClick={openCreate}
-          className="bg-orange-600 text-white hover:bg-orange-700 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
+          className="bg-sky-500 text-white hover:bg-sky-600 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
           data-testid="create-order-button"
         >
           <Plus className="w-4 h-4 mr-2" /> Krijo Porosi
@@ -217,7 +217,7 @@ export default function OrdersPage() {
           placeholder="Kërko me IG, emër, masë..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-10 h-10 border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+          className="pl-10 h-10 border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
           data-testid="search-orders-input"
         />
       </div>
@@ -246,7 +246,7 @@ export default function OrdersPage() {
                       <div>
                         {order.client_ig ? (
                           <p className="font-bold text-zinc-900 flex items-center gap-1.5">
-                            <Instagram className="w-3.5 h-3.5 text-orange-600" />
+                            <Instagram className="w-3.5 h-3.5 text-sky-500" />
                             @{order.client_ig}
                           </p>
                         ) : (
@@ -269,7 +269,7 @@ export default function OrdersPage() {
                           <img
                             src={`${BACKEND_URL}${order.product_photo}`}
                             alt="Produkt"
-                            className="w-12 h-12 rounded-lg object-cover border border-zinc-200 group-hover:border-orange-400 transition-colors"
+                            className="w-12 h-12 rounded-lg object-cover border border-zinc-200 group-hover:border-sky-400 transition-colors"
                           />
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 rounded-lg flex items-center justify-center transition-all">
                             <ZoomIn className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -403,7 +403,7 @@ export default function OrdersPage() {
                 value={formData.client_id}
                 onValueChange={(val) => setFormData((prev) => ({ ...prev, client_id: val }))}
               >
-                <SelectTrigger className="border-zinc-200 focus:border-orange-500 rounded-lg bg-white h-10" data-testid="order-client-select">
+                <SelectTrigger className="border-zinc-200 focus:border-sky-500 rounded-lg bg-white h-10" data-testid="order-client-select">
                   <SelectValue placeholder="Zgjidhni klientin" />
                 </SelectTrigger>
                 <SelectContent>
@@ -444,11 +444,11 @@ export default function OrdersPage() {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
-                  className="w-full h-32 border-2 border-dashed border-zinc-200 rounded-xl flex flex-col items-center justify-center gap-2 text-zinc-400 hover:border-orange-300 hover:text-orange-500 transition-colors"
+                  className="w-full h-32 border-2 border-dashed border-zinc-200 rounded-xl flex flex-col items-center justify-center gap-2 text-zinc-400 hover:border-sky-300 hover:text-sky-500 transition-colors"
                   data-testid="upload-photo-button"
                 >
                   {uploading ? (
-                    <div className="animate-spin w-6 h-6 border-2 border-orange-600 border-t-transparent rounded-full" />
+                    <div className="animate-spin w-6 h-6 border-2 border-sky-500 border-t-transparent rounded-full" />
                   ) : (
                     <>
                       <Upload className="w-6 h-6" />
@@ -466,7 +466,7 @@ export default function OrdersPage() {
                 value={formData.masa}
                 onValueChange={(val) => setFormData((prev) => ({ ...prev, masa: val }))}
               >
-                <SelectTrigger className="border-zinc-200 focus:border-orange-500 rounded-lg bg-white h-10" data-testid="order-masa-select">
+                <SelectTrigger className="border-zinc-200 focus:border-sky-500 rounded-lg bg-white h-10" data-testid="order-masa-select">
                   <SelectValue placeholder="Zgjidhni masën" />
                 </SelectTrigger>
                 <SelectContent>
@@ -487,7 +487,7 @@ export default function OrdersPage() {
                 value={formData.total_price}
                 onChange={(e) => setFormData((prev) => ({ ...prev, total_price: e.target.value }))}
                 placeholder="0.00"
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 data-testid="order-price-input"
                 required
               />
@@ -500,7 +500,7 @@ export default function OrdersPage() {
                 value={formData.notes}
                 onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
                 placeholder="Shënime shtesë (opsionale)"
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 data-testid="order-notes-input"
               />
             </div>
@@ -518,7 +518,7 @@ export default function OrdersPage() {
               <Button
                 type="submit"
                 disabled={saving}
-                className="bg-orange-600 text-white hover:bg-orange-700"
+                className="bg-sky-500 text-white hover:bg-sky-600"
                 data-testid="order-save-button"
               >
                 {saving ? 'Duke ruajtur...' : 'Ruaj'}
