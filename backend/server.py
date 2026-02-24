@@ -144,7 +144,7 @@ async def login(user: UserLogin):
         raise HTTPException(status_code=401, detail="Email ose fjalëkalimi i gabuar")
     
     token = create_access_token({"user_id": db_user["id"]})
-    return {"token": token, "user": {"id": db_user["id"], "email": db_user["email"], "name": db_user["name"]}}
+    return {"token": token, "user": {"id": db_user["id"], "email": db_user["email"], "name": db_user["name"], "role": db_user.get("role", "admin")}}
 
 @api_router.get("/auth/me")
 async def get_me(user=Depends(get_current_user)):
