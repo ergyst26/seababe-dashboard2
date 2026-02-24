@@ -210,7 +210,7 @@ async def upload_file(file: UploadFile = File(...), user=Depends(get_current_use
 
 @api_router.get("/orders")
 async def get_orders(user=Depends(get_current_user)):
-    orders = await db.orders.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    orders = await db.orders.find({}, {"_id": 0}).sort("created_at", 1).to_list(1000)
     # Enrich with client info
     for order in orders:
         client = await db.clients.find_one({"id": order.get("client_id")}, {"_id": 0})
