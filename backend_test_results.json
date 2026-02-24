@@ -1,0 +1,87 @@
+{
+  "summary": {
+    "tests_run": 13,
+    "tests_passed": 12,
+    "success_rate": "92.3%"
+  },
+  "results": [
+    {
+      "test": "Login Existing User",
+      "success": true,
+      "details": "Logged in successfully",
+      "timestamp": "2026-02-24T10:27:50.793991"
+    },
+    {
+      "test": "Get Current User",
+      "success": true,
+      "details": "User: admin@orderflow.com",
+      "timestamp": "2026-02-24T10:27:50.953003"
+    },
+    {
+      "test": "Register New User",
+      "success": false,
+      "details": "Status: 400, Error: Numri maksimal i p\u00ebrdoruesve \u00ebsht\u00eb arritur (2)",
+      "timestamp": "2026-02-24T10:27:51.096356"
+    },
+    {
+      "test": "Test Max Users Limit",
+      "success": true,
+      "details": "Correctly blocked 3rd user registration",
+      "timestamp": "2026-02-24T10:27:51.226727"
+    },
+    {
+      "test": "Get All Clients",
+      "success": true,
+      "details": "Retrieved 0 clients",
+      "timestamp": "2026-02-24T10:27:51.330512"
+    },
+    {
+      "test": "Create New Client",
+      "success": true,
+      "details": "Client created with ID: 9521e2bc-3a09-42dd-af25-27018ac30650",
+      "timestamp": "2026-02-24T10:27:51.434179"
+    },
+    {
+      "test": "Update Client",
+      "success": true,
+      "details": "Client updated successfully",
+      "timestamp": "2026-02-24T10:27:51.544360"
+    },
+    {
+      "test": "Get All Orders",
+      "success": true,
+      "details": "Retrieved 0 orders",
+      "timestamp": "2026-02-24T10:27:51.640434"
+    },
+    {
+      "test": "Create New Order",
+      "success": true,
+      "details": "Order created with ID: aa4c45e1-1722-426b-9b2f-d4ef34d4aece",
+      "timestamp": "2026-02-24T10:27:51.769282"
+    },
+    {
+      "test": "Update Order",
+      "success": true,
+      "details": "Order updated successfully",
+      "timestamp": "2026-02-24T10:27:51.871152"
+    },
+    {
+      "test": "Get Dashboard Stats",
+      "success": true,
+      "details": "Stats retrieved: ['total_clients', 'total_orders', 'pending_orders', 'completed_orders', 'total_revenue', 'recent_orders']",
+      "timestamp": "2026-02-24T10:27:51.977605"
+    },
+    {
+      "test": "Delete Order",
+      "success": true,
+      "details": "Order deleted successfully",
+      "timestamp": "2026-02-24T10:27:52.086863"
+    },
+    {
+      "test": "Delete Client",
+      "success": true,
+      "details": "Client deleted successfully",
+      "timestamp": "2026-02-24T10:27:52.193797"
+    }
+  ]
+}
