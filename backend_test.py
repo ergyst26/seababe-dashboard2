@@ -527,6 +527,13 @@ class OrderFlowAPITester:
         print("\n👥 CLIENT TESTS")
         self.test_get_clients()
         
+        # Test new sorting feature
+        self.test_clients_sorted_by_date()
+        
+        # Test new photo feature
+        photo_client_success, photo_client_response = self.test_create_client_with_photo()
+        photo_client_id = photo_client_response.get('id') if photo_client_success else None
+        
         client_success, client_response = self.test_create_client()
         client_id = None
         if client_success and 'id' in client_response:
@@ -538,11 +545,21 @@ class OrderFlowAPITester:
         self.test_get_orders()
         
         order_id = None
+        masa_order_id = None
         if client_id:
             order_success, order_response = self.test_create_order(client_id)
             if order_success and 'id' in order_response:
                 order_id = order_response['id']
                 self.test_update_order(order_id)
+            
+            # Test new masa feature
+            masa_success, masa_response = self.test_create_order_with_masa(client_id)
+            if masa_success and 'id' in masa_response:
+                masa_order_id = masa_response['id']
+                
+                # Test admin-only delete feature
+                self.test_admin_only_delete_order(masa_order_id)
+                # Since we tested delete, don't try to delete again in cleanup
 
         # Test dashboard
         print("\n📊 DASHBOARD TESTS")
