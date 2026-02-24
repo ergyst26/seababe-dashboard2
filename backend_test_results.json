@@ -9,109 +9,109 @@
       "test": "Login Existing User",
       "success": true,
       "details": "Logged in successfully",
-      "timestamp": "2026-02-24T11:47:41.854148"
+      "timestamp": "2026-02-24T11:59:36.232188"
     },
     {
       "test": "Get Current User",
       "success": true,
       "details": "User: admin@orderflow.com",
-      "timestamp": "2026-02-24T11:47:42.024448"
+      "timestamp": "2026-02-24T11:59:36.340303"
     },
     {
       "test": "Register New User",
       "success": false,
       "details": "Status: 400, Error: Numri maksimal i p\u00ebrdoruesve \u00ebsht\u00eb arritur (2)",
-      "timestamp": "2026-02-24T11:47:42.153969"
+      "timestamp": "2026-02-24T11:59:36.495392"
     },
     {
       "test": "Test Max Users Limit",
       "success": true,
       "details": "Correctly blocked 3rd user registration",
-      "timestamp": "2026-02-24T11:47:42.305779"
+      "timestamp": "2026-02-24T11:59:36.609365"
     },
     {
       "test": "Get All Clients",
       "success": true,
       "details": "Retrieved 2 clients",
-      "timestamp": "2026-02-24T11:47:42.420069"
+      "timestamp": "2026-02-24T11:59:36.709740"
     },
     {
       "test": "Clients Sorted by Date",
       "success": true,
       "details": "Clients correctly sorted oldest first",
-      "timestamp": "2026-02-24T11:47:43.771003"
+      "timestamp": "2026-02-24T11:59:38.046193"
     },
     {
       "test": "Create Client with Photo",
       "success": true,
       "details": "Client created with photo: /api/uploads/test-photo.jpg",
-      "timestamp": "2026-02-24T11:47:44.128448"
+      "timestamp": "2026-02-24T11:59:38.401074"
     },
     {
       "test": "Create New Client",
       "success": true,
-      "details": "Client created with ID: 249a25d7-8243-4f50-9dc1-6f61aa9bb11d",
-      "timestamp": "2026-02-24T11:47:44.235378"
+      "details": "Client created with ID: b6360341-daac-4c41-a9f3-f1d8d95896bb",
+      "timestamp": "2026-02-24T11:59:38.504726"
     },
     {
       "test": "Update Client",
       "success": true,
       "details": "Client updated successfully",
-      "timestamp": "2026-02-24T11:47:44.342180"
+      "timestamp": "2026-02-24T11:59:38.660313"
     },
     {
       "test": "Get All Orders",
       "success": true,
       "details": "Retrieved 3 orders",
-      "timestamp": "2026-02-24T11:47:44.442745"
+      "timestamp": "2026-02-24T11:59:38.760734"
     },
     {
       "test": "Create New Order",
       "success": true,
-      "details": "Order created with ID: a581846a-1888-4e45-9d33-ecee164fefbd",
-      "timestamp": "2026-02-24T11:47:44.548233"
+      "details": "Order created with ID: e13f061d-ae9a-4b26-915d-957bb40b7739",
+      "timestamp": "2026-02-24T11:59:38.889687"
     },
     {
       "test": "Update Order",
       "success": true,
       "details": "Order updated successfully",
-      "timestamp": "2026-02-24T11:47:44.656289"
+      "timestamp": "2026-02-24T11:59:38.998021"
     },
     {
       "test": "Create Order with Masa",
       "success": true,
       "details": "Order created with masa: L",
-      "timestamp": "2026-02-24T11:47:44.797514"
+      "timestamp": "2026-02-24T11:59:39.100739"
     },
     {
       "test": "Admin Only Delete",
       "success": true,
       "details": "Admin successfully deleted order",
-      "timestamp": "2026-02-24T11:47:45.005656"
+      "timestamp": "2026-02-24T11:59:39.306495"
     },
     {
       "test": "Get Dashboard Stats",
       "success": true,
       "details": "Stats retrieved: ['total_clients', 'total_orders', 'pending_orders', 'completed_orders', 'total_revenue', 'recent_orders']",
-      "timestamp": "2026-02-24T11:47:45.117715"
+      "timestamp": "2026-02-24T11:59:39.418982"
     },
     {
       "test": "Delete Order",
       "success": true,
       "details": "Order deleted successfully",
-      "timestamp": "2026-02-24T11:47:45.213650"
+      "timestamp": "2026-02-24T11:59:39.530218"
     },
     {
       "test": "Delete Client",
       "success": true,
       "details": "Client deleted successfully",
-      "timestamp": "2026-02-24T11:47:45.317334"
+      "timestamp": "2026-02-24T11:59:39.867277"
     },
     {
       "test": "Delete Client",
       "success": true,
       "details": "Client deleted successfully",
-      "timestamp": "2026-02-24T11:47:45.423730"
+      "timestamp": "2026-02-24T11:59:40.168221"
     }
   ]
 }
