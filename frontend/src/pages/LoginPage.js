@@ -5,7 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Package, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_sales-hub-145/artifacts/29cym9d5_f8fb30e8-6bc2-4ccc-a18a-29acc7151e67.jpeg";
 
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
@@ -39,22 +41,16 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex" data-testid="login-page">
-      {/* Left side - Image */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1729952620303-4dc47fb5d93a?crop=entropy&cs=srgb&fm=jpg&q=85"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-zinc-900/40" />
-        <div className="relative z-10 flex flex-col justify-end p-12 text-white">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center">
-              <Package className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-2xl font-bold font-['Outfit']">OrderFlow</span>
-          </div>
-          <p className="text-lg text-white/80 max-w-md leading-relaxed">
+      {/* Left side - Logo & Brand */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#4AB8E0]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#4AB8E0] to-[#3A9BC7]" />
+        <div className="relative z-10 flex flex-col items-center justify-center w-full p-12">
+          <img
+            src={LOGO_URL}
+            alt="Seababe Logo"
+            className="w-64 h-64 object-contain rounded-2xl mb-8"
+          />
+          <p className="text-lg text-white/90 max-w-md leading-relaxed text-center">
             Menaxhoni klientët dhe porositë tuaja në një vend të vetëm. E thjeshtë, e shpejtë, efikase.
           </p>
         </div>
@@ -63,11 +59,8 @@ export default function LoginPage() {
       {/* Right side - Form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-[#FAFAFA]">
         <div className="w-full max-w-md">
-          <div className="lg:hidden flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center">
-              <Package className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-2xl font-bold font-['Outfit'] text-zinc-900">OrderFlow</span>
+          <div className="lg:hidden flex items-center justify-center mb-10">
+            <img src={LOGO_URL} alt="Seababe" className="w-20 h-20 object-contain rounded-xl" />
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 font-['Outfit'] mb-2" data-testid="login-title">
@@ -87,7 +80,7 @@ export default function LoginPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Emri juaj"
-                  className="h-11 border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                  className="h-11 border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                   required
                 />
               </div>
@@ -102,7 +95,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@shembull.com"
-                className="h-11 border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="h-11 border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 required
               />
             </div>
@@ -117,7 +110,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Fjalëkalimi juaj"
-                  className="h-11 border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white pr-10"
+                  className="h-11 border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white pr-10"
                   required
                 />
                 <button
@@ -135,7 +128,7 @@ export default function LoginPage() {
               type="submit"
               data-testid="login-submit-button"
               disabled={loading}
-              className="w-full h-11 bg-orange-600 text-white hover:bg-orange-700 rounded-lg font-medium transition-transform active:scale-[0.98]"
+              className="w-full h-11 bg-sky-500 text-white hover:bg-sky-600 rounded-lg font-medium transition-transform active:scale-[0.98]"
             >
               {loading ? 'Duke u ngarkuar...' : (isRegister ? 'Regjistrohu' : 'Hyr')}
             </Button>
@@ -144,7 +137,7 @@ export default function LoginPage() {
           <div className="mt-6 text-center">
             <button
               onClick={() => setIsRegister(!isRegister)}
-              className="text-sm text-zinc-500 hover:text-orange-600 transition-colors"
+              className="text-sm text-zinc-500 hover:text-sky-600 transition-colors"
               data-testid="toggle-auth-mode"
             >
               {isRegister ? 'Ke llogari? Hyr këtu' : 'Nuk ke llogari? Regjistrohu'}
