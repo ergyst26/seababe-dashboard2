@@ -1,117 +1,129 @@
 {
   "summary": {
-    "tests_run": 18,
-    "tests_passed": 17,
-    "success_rate": "94.4%"
+    "tests_run": 20,
+    "tests_passed": 19,
+    "success_rate": "95.0%"
   },
   "results": [
     {
       "test": "Login Existing User",
       "success": true,
       "details": "Logged in successfully",
-      "timestamp": "2026-02-24T11:59:36.232188"
+      "timestamp": "2026-02-24T12:18:14.966304"
     },
     {
       "test": "Get Current User",
       "success": true,
       "details": "User: admin@orderflow.com",
-      "timestamp": "2026-02-24T11:59:36.340303"
+      "timestamp": "2026-02-24T12:18:15.103025"
     },
     {
       "test": "Register New User",
       "success": false,
       "details": "Status: 400, Error: Numri maksimal i p\u00ebrdoruesve \u00ebsht\u00eb arritur (2)",
-      "timestamp": "2026-02-24T11:59:36.495392"
+      "timestamp": "2026-02-24T12:18:15.249929"
     },
     {
       "test": "Test Max Users Limit",
       "success": true,
       "details": "Correctly blocked 3rd user registration",
-      "timestamp": "2026-02-24T11:59:36.609365"
+      "timestamp": "2026-02-24T12:18:15.403516"
     },
     {
       "test": "Get All Clients",
       "success": true,
       "details": "Retrieved 2 clients",
-      "timestamp": "2026-02-24T11:59:36.709740"
+      "timestamp": "2026-02-24T12:18:15.510684"
     },
     {
       "test": "Clients Sorted by Date",
       "success": true,
       "details": "Clients correctly sorted oldest first",
-      "timestamp": "2026-02-24T11:59:38.046193"
+      "timestamp": "2026-02-24T12:18:16.877711"
     },
     {
       "test": "Create Client with Photo",
       "success": true,
       "details": "Client created with photo: /api/uploads/test-photo.jpg",
-      "timestamp": "2026-02-24T11:59:38.401074"
+      "timestamp": "2026-02-24T12:18:17.283992"
     },
     {
       "test": "Create New Client",
       "success": true,
-      "details": "Client created with ID: b6360341-daac-4c41-a9f3-f1d8d95896bb",
-      "timestamp": "2026-02-24T11:59:38.504726"
+      "details": "Client created with ID: 1bc34e38-3d11-4908-be7e-b70930f0b0a3",
+      "timestamp": "2026-02-24T12:18:17.397656"
     },
     {
       "test": "Update Client",
       "success": true,
       "details": "Client updated successfully",
-      "timestamp": "2026-02-24T11:59:38.660313"
+      "timestamp": "2026-02-24T12:18:17.499986"
     },
     {
       "test": "Get All Orders",
       "success": true,
-      "details": "Retrieved 3 orders",
-      "timestamp": "2026-02-24T11:59:38.760734"
+      "details": "Retrieved 6 orders",
+      "timestamp": "2026-02-24T12:18:17.608740"
     },
     {
       "test": "Create New Order",
       "success": true,
-      "details": "Order created with ID: e13f061d-ae9a-4b26-915d-957bb40b7739",
-      "timestamp": "2026-02-24T11:59:38.889687"
+      "details": "Order created with ID: 8b8de00c-ead9-49f3-b018-710287784d65",
+      "timestamp": "2026-02-24T12:18:17.726593"
     },
     {
       "test": "Update Order",
       "success": true,
       "details": "Order updated successfully",
-      "timestamp": "2026-02-24T11:59:38.998021"
+      "timestamp": "2026-02-24T12:18:17.840166"
     },
     {
       "test": "Create Order with Masa",
       "success": true,
       "details": "Order created with masa: L",
-      "timestamp": "2026-02-24T11:59:39.100739"
+      "timestamp": "2026-02-24T12:18:17.942743"
     },
     {
       "test": "Admin Only Delete",
       "success": true,
       "details": "Admin successfully deleted order",
-      "timestamp": "2026-02-24T11:59:39.306495"
+      "timestamp": "2026-02-24T12:18:18.196929"
+    },
+    {
+      "test": "Export Orders Excel",
+      "success": true,
+      "details": "Excel export successful",
+      "timestamp": "2026-02-24T12:18:18.734817"
+    },
+    {
+      "test": "Export Orders Invalid Date",
+      "success": true,
+      "details": "Correctly rejected invalid date format",
+      "timestamp": "2026-02-24T12:18:18.846143"
     },
     {
       "test": "Get Dashboard Stats",
       "success": true,
       "details": "Stats retrieved: ['total_clients', 'total_orders', 'pending_orders', 'completed_orders', 'total_revenue', 'recent_orders']",
-      "timestamp": "2026-02-24T11:59:39.418982"
+      "timestamp": "2026-02-24T12:18:18.947839"
     },
     {
       "test": "Delete Order",
       "success": true,
       "details": "Order deleted successfully",
-      "timestamp": "2026-02-24T11:59:39.530218"
+      "timestamp": "2026-02-24T12:18:19.067748"
     },
     {
       "test": "Delete Client",
       "success": true,
       "details": "Client deleted successfully",
-      "timestamp": "2026-02-24T11:59:39.867277"
+      "timestamp": "2026-02-24T12:18:19.178262"
     },
     {
       "test": "Delete Client",
       "success": true,
       "details": "Client deleted successfully",
-      "timestamp": "2026-02-24T11:59:40.168221"
+      "timestamp": "2026-02-24T12:18:19.300802"
     }
   ]
 }
