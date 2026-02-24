@@ -600,6 +600,85 @@ export default function OrdersPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Export Dialog */}
+      <Dialog open={exportDialogOpen} onOpenChange={setExportDialogOpen}>
+        <DialogContent className="sm:max-w-md" data-testid="export-dialog">
+          <DialogHeader>
+            <DialogTitle className="font-['Outfit'] text-xl">Eksporto Porositë në Excel</DialogTitle>
+            <DialogDescription>Zgjidhni datat për të eksportuar porositë</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label className="text-zinc-700 font-medium">Data e Fillimit</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal border-zinc-200 h-10"
+                    data-testid="export-start-date-trigger"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 text-zinc-400" />
+                    {exportStartDate ? format(exportStartDate, 'dd/MM/yyyy') : 'Zgjidhni datën'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={exportStartDate}
+                    onSelect={setExportStartDate}
+                    initialFocus
+                    data-testid="export-start-calendar"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="space-y-2">
+              <Label className="text-zinc-700 font-medium">Data e Mbarimit</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal border-zinc-200 h-10"
+                    data-testid="export-end-date-trigger"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 text-zinc-400" />
+                    {exportEndDate ? format(exportEndDate, 'dd/MM/yyyy') : 'Zgjidhni datën'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={exportEndDate}
+                    onSelect={setExportEndDate}
+                    initialFocus
+                    data-testid="export-end-calendar"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setExportDialogOpen(false)}
+              className="border-zinc-200"
+              data-testid="export-cancel-button"
+            >
+              Anulo
+            </Button>
+            <Button
+              onClick={handleExport}
+              disabled={exporting || !exportStartDate || !exportEndDate}
+              className="bg-sky-500 text-white hover:bg-sky-600"
+              data-testid="export-confirm-button"
+            >
+              <FileSpreadsheet className="w-4 h-4 mr-2" />
+              {exporting ? 'Duke eksportuar...' : 'Eksporto Excel'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
