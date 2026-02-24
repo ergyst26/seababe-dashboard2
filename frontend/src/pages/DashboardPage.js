@@ -115,8 +115,8 @@ export default function DashboardPage() {
                   data-testid={`recent-order-${order.id}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
-                      <ShoppingBag className="w-4 h-4 text-orange-600" />
+                    <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center">
+                      <ShoppingBag className="w-4 h-4 text-sky-600" />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-zinc-900">{order.client_name}</p>
