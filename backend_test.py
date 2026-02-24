@@ -482,6 +482,40 @@ class OrderFlowAPITester:
         else:
             return False, {}
 
+    # ============ EXPORT TESTS (NEW FEATURE) ============
+    
+    def test_export_orders_excel(self):
+        """Test exporting orders to Excel (NEW FEATURE)"""
+        # Test with valid date range
+        success, response = self.run_test(
+            "Export Orders Excel",
+            "GET",
+            "/orders/export?start_date=2020-01-01&end_date=2030-12-31",
+            200,
+            headers={'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+        )
+        
+        if success:
+            self.log_result("Export Orders Excel", True, "Excel export successful")
+            return True, response
+        else:
+            return False, {}
+
+    def test_export_orders_invalid_date_format(self):
+        """Test export with invalid date format"""
+        success, response = self.run_test(
+            "Export Orders Invalid Date Format",
+            "GET", 
+            "/orders/export?start_date=invalid&end_date=2030-12-31",
+            400  # Should fail with 400
+        )
+        
+        if success:
+            self.log_result("Export Orders Invalid Date", True, "Correctly rejected invalid date format")
+            return True, response
+        else:
+            return False, {}
+
     # ============ DASHBOARD TESTS ============
     
     def test_dashboard_stats(self):
