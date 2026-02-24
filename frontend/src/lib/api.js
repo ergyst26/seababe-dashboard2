@@ -68,5 +68,13 @@ export const dashboardAPI = {
   getStats: () => api.get('/dashboard/stats'),
 };
 
+// Export
+export const exportAPI = {
+  exportOrders: (startDate, endDate) =>
+    api.get(`/orders/export?start_date=${startDate}&end_date=${endDate}`, {
+      responseType: 'blob',
+    }),
+};
+
 export { BACKEND_URL };
 export default api;
