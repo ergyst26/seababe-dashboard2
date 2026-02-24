@@ -166,6 +166,7 @@ async def create_client(client_data: ClientCreate, user=Depends(get_current_user
         "ig_name": client_data.ig_name,
         "address": client_data.address,
         "phone": client_data.phone,
+        "photo": client_data.photo,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     await db.clients.insert_one(client_doc)
