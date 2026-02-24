@@ -569,8 +569,11 @@ class OrderFlowAPITester:
         print("\n🧹 CLEANUP")
         if order_id:
             self.test_delete_order(order_id)
+        # masa_order_id was already deleted in the admin delete test
         if client_id:
             self.test_delete_client(client_id)
+        if photo_client_id:
+            self.test_delete_client(photo_client_id)
 
         # Final results
         print("\n" + "=" * 50)
