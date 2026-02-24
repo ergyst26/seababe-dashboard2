@@ -142,7 +142,7 @@ export default function ClientsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin w-8 h-8 border-2 border-orange-600 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -158,7 +158,7 @@ export default function ClientsPage() {
         </div>
         <Button
           onClick={openCreate}
-          className="bg-orange-600 text-white hover:bg-orange-700 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
+          className="bg-sky-500 text-white hover:bg-sky-600 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
           data-testid="add-client-button"
         >
           <Plus className="w-4 h-4 mr-2" /> Shto Klient
@@ -172,7 +172,7 @@ export default function ClientsPage() {
           placeholder="Kërko me IG username, emër, telefon..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-10 h-10 border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+          className="pl-10 h-10 border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
           data-testid="search-clients-input"
         />
       </div>
@@ -202,8 +202,8 @@ export default function ClientsPage() {
                           className="w-10 h-10 rounded-lg object-cover border border-zinc-200"
                         />
                       ) : (
-                        <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
-                          <span className="text-sm font-semibold text-orange-700">
+                        <div className="w-10 h-10 rounded-lg bg-sky-100 flex items-center justify-center flex-shrink-0">
+                          <span className="text-sm font-semibold text-sky-600">
                             {client.name?.[0]}{client.surname?.[0]}
                           </span>
                         </div>
@@ -213,7 +213,7 @@ export default function ClientsPage() {
                       <div>
                         {client.ig_name && (
                           <p className="font-bold text-zinc-900 flex items-center gap-1.5" data-testid={`client-ig-display-${client.id}`}>
-                            <Instagram className="w-3.5 h-3.5 text-orange-600" />
+                            <Instagram className="w-3.5 h-3.5 text-sky-500" />
                             @{client.ig_name}
                           </p>
                         )}
@@ -319,11 +319,11 @@ export default function ClientsPage() {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
-                  className="w-24 h-24 border-2 border-dashed border-zinc-200 rounded-xl flex flex-col items-center justify-center gap-1 text-zinc-400 hover:border-orange-300 hover:text-orange-500 transition-colors"
+                  className="w-24 h-24 border-2 border-dashed border-zinc-200 rounded-xl flex flex-col items-center justify-center gap-1 text-zinc-400 hover:border-sky-300 hover:text-sky-500 transition-colors"
                   data-testid="upload-client-photo-button"
                 >
                   {uploading ? (
-                    <div className="animate-spin w-5 h-5 border-2 border-orange-600 border-t-transparent rounded-full" />
+                    <div className="animate-spin w-5 h-5 border-2 border-sky-500 border-t-transparent rounded-full" />
                   ) : (
                     <>
                       <Upload className="w-5 h-5" />
@@ -341,7 +341,7 @@ export default function ClientsPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Emri"
-                  className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                  className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                   data-testid="client-name-input"
                   required
                 />
@@ -352,7 +352,7 @@ export default function ClientsPage() {
                   value={formData.surname}
                   onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
                   placeholder="Mbiemri"
-                  className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                  className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                   data-testid="client-surname-input"
                   required
                 />
@@ -364,7 +364,7 @@ export default function ClientsPage() {
                 value={formData.ig_name}
                 onChange={(e) => setFormData({ ...formData, ig_name: e.target.value })}
                 placeholder="emri_instagram"
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 data-testid="client-ig-input"
               />
             </div>
@@ -374,7 +374,7 @@ export default function ClientsPage() {
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                 placeholder="Adresa e plotë"
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 data-testid="client-address-input"
               />
             </div>
@@ -384,7 +384,7 @@ export default function ClientsPage() {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+355 69 xxx xxxx"
-                className="border-zinc-200 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg bg-white"
+                className="border-zinc-200 focus:border-sky-500 focus:ring-sky-500/20 rounded-lg bg-white"
                 data-testid="client-phone-input"
               />
             </div>
@@ -401,7 +401,7 @@ export default function ClientsPage() {
               <Button
                 type="submit"
                 disabled={saving}
-                className="bg-orange-600 text-white hover:bg-orange-700"
+                className="bg-sky-500 text-white hover:bg-sky-600"
                 data-testid="client-save-button"
               >
                 {saving ? 'Duke ruajtur...' : 'Ruaj'}
