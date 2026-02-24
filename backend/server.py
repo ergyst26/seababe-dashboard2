@@ -277,6 +277,79 @@ async def delete_order(order_id: str, user=Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="Porosia nuk u gjet")
     return {"message": "Porosia u fshi me sukses"}
 
+# ============ EXPORT ORDERS TO EXCEL ============
+
+@api_router.get("/orders/export")
+async def export_orders(
+    start_date: str = Query(..., description="Start date YYYY-MM-DD"),
+    end_date: str = Query(..., description="End date YYYY-MM-DD"),
+    user=Depends(get_current_user)
+):
+    # Parse dates
+    try:
+        start = datetime.strptime(start_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        end = datetime.strptime(end_date, "%Y-%m-%d").replace(hour=23, minute=59, second=59, tzinfo=timezone.utc)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Formati i datës i gabuar. Përdorni YYYY-MM-DD")
+
+    # Get orders in date range
+    orders = await db.orders.find(
+        {"created_at": {"$gte": start.isoformat(), "$lte": end.isoformat()}},
+        {"_id": 0}
+    ).sort("created_at", 1).to_list(10000)
+
+    # Enrich with client info
+    for order in orders:
+        client = await db.clients.find_one({"id": order.get("client_id")}, {"_id": 0})
+        if client:
+            order["client_name"] = f"{client['name']} {client['surname']}"
+            order["client_ig"] = client.get("ig_name", "")
+        else:
+            order["client_name"] = "I panjohur"
+            order["client_ig"] = ""
+
+    # Create Excel
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Porositë"
+
+    # Headers
+    headers = ["IG Username", "Emri i Klientit", "Masa", "Çmimi Total", "Statusi", "Shënime", "Data"]
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=1, column=col, value=header)
+        cell.font = cell.font.copy(bold=True)
+
+    # Data rows
+    for row_idx, order in enumerate(orders, 2):
+        ws.cell(row=row_idx, column=1, value=f"@{order.get('client_ig', '')}" if order.get('client_ig') else "")
+        ws.cell(row=row_idx, column=2, value=order.get("client_name", ""))
+        ws.cell(row=row_idx, column=3, value=order.get("masa", ""))
+        ws.cell(row=row_idx, column=4, value=order.get("total_price", 0))
+        status = "E Përfunduar" if order.get("status") == "completed" else "Në Pritje"
+        ws.cell(row=row_idx, column=5, value=status)
+        ws.cell(row=row_idx, column=6, value=order.get("notes", ""))
+        ws.cell(row=row_idx, column=7, value=order.get("created_at", "")[:10])
+
+    # Auto-width columns
+    for col in ws.columns:
+        max_length = 0
+        for cell in col:
+            if cell.value:
+                max_length = max(max_length, len(str(cell.value)))
+        ws.column_dimensions[col[0].column_letter].width = min(max_length + 4, 40)
+
+    # Save to buffer
+    buffer = BytesIO()
+    wb.save(buffer)
+    buffer.seek(0)
+
+    filename = f"porosi_{start_date}_deri_{end_date}.xlsx"
+    return StreamingResponse(
+        buffer,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
 # ============ DASHBOARD STATS ============
 
 @api_router.get("/dashboard/stats")
