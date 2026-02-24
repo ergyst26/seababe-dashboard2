@@ -595,6 +595,11 @@ class OrderFlowAPITester:
                 self.test_admin_only_delete_order(masa_order_id)
                 # Since we tested delete, don't try to delete again in cleanup
 
+        # Test export functionality (NEW)
+        print("\n📊 EXPORT TESTS")
+        self.test_export_orders_excel()
+        self.test_export_orders_invalid_date_format()
+
         # Test dashboard
         print("\n📊 DASHBOARD TESTS")
         self.test_dashboard_stats()
