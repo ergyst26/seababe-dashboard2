@@ -201,6 +201,107 @@ class OrderFlowAPITester:
         else:
             return False, {}
 
+    def test_create_client_with_photo(self):
+        """Test creating a client with photo field (NEW FEATURE)"""
+        success, response = self.run_test(
+            "Create Client with Photo",
+            "POST",
+            "/clients",
+            200,
+            data={
+                "name": "Besa",
+                "surname": "Krasniqi", 
+                "ig_name": "besakrasniqi",
+                "address": "Pristina",
+                "phone": "+38344123456",
+                "photo": "/api/uploads/test-photo.jpg"
+            }
+        )
+        
+        if success and 'id' in response and 'photo' in response:
+            self.log_result("Create Client with Photo", True, f"Client created with photo: {response.get('photo', 'N/A')}")
+            return True, response
+        elif success:
+            self.log_result("Create Client with Photo", False, "Missing photo field in response")
+            return False, {}
+        else:
+            return False, {}
+
+    def test_clients_sorted_by_date(self):
+        """Test that clients are returned sorted by created_at ascending (NEW FEATURE)"""
+        # Create two clients with slight delay to ensure different timestamps
+        import time
+        
+        # First client
+        success1, client1 = self.run_test(
+            "Create First Client for Sorting",
+            "POST",
+            "/clients",
+            200,
+            data={
+                "name": "First",
+                "surname": "Client", 
+                "ig_name": "first_client"
+            }
+        )
+        
+        time.sleep(1)  # Small delay to ensure different timestamps
+        
+        # Second client  
+        success2, client2 = self.run_test(
+            "Create Second Client for Sorting",
+            "POST", 
+            "/clients",
+            200,
+            data={
+                "name": "Second",
+                "surname": "Client",
+                "ig_name": "second_client"
+            }
+        )
+        
+        if success1 and success2:
+            # Get all clients and check if they're sorted by created_at ascending
+            success, clients = self.run_test(
+                "Get Clients Sorted by Date",
+                "GET",
+                "/clients", 
+                200
+            )
+            
+            if success and len(clients) >= 2:
+                # Find our test clients and check their order
+                first_client_index = None
+                second_client_index = None
+                
+                for i, client in enumerate(clients):
+                    if client.get('ig_name') == 'first_client':
+                        first_client_index = i
+                    elif client.get('ig_name') == 'second_client':
+                        second_client_index = i
+                
+                if first_client_index is not None and second_client_index is not None:
+                    if first_client_index < second_client_index:
+                        self.log_result("Clients Sorted by Date", True, "Clients correctly sorted oldest first")
+                        # Cleanup test clients
+                        if success1 and 'id' in client1:
+                            self.run_test("Cleanup First Sort Client", "DELETE", f"/clients/{client1['id']}", 200)
+                        if success2 and 'id' in client2:
+                            self.run_test("Cleanup Second Sort Client", "DELETE", f"/clients/{client2['id']}", 200)
+                        return True, clients
+                    else:
+                        self.log_result("Clients Sorted by Date", False, "Clients not sorted correctly - newest appears first")
+                        return False, {}
+                else:
+                    self.log_result("Clients Sorted by Date", False, "Could not find test clients in response")
+                    return False, {}
+            else:
+                self.log_result("Clients Sorted by Date", False, "Could not retrieve clients list")
+                return False, {}
+        else:
+            self.log_result("Clients Sorted by Date", False, "Failed to create test clients")
+            return False, {}
+
     def test_update_client(self, client_id):
         """Test updating a client"""
         success, response = self.run_test(
