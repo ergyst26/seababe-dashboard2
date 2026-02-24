@@ -75,6 +75,33 @@ export default function OrdersPage() {
     loadData();
   }, [loadData]);
 
+  const handleExport = async () => {
+    if (!exportStartDate || !exportEndDate) {
+      toast.error('Zgjidhni datën e fillimit dhe mbarimit');
+      return;
+    }
+    setExporting(true);
+    try {
+      const startStr = format(exportStartDate, 'yyyy-MM-dd');
+      const endStr = format(exportEndDate, 'yyyy-MM-dd');
+      const res = await exportAPI.exportOrders(startStr, endStr);
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `porosi_${startStr}_deri_${endStr}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      toast.success('Excel u shkarkua me sukses');
+      setExportDialogOpen(false);
+    } catch (err) {
+      toast.error('Gabim gjatë eksportimit');
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const handleUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
