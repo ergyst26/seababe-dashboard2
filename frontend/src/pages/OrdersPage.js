@@ -235,13 +235,23 @@ export default function OrdersPage() {
           </h1>
           <p className="text-zinc-500 mt-1">{orders.length} porosi gjithsej</p>
         </div>
-        <Button
-          onClick={openCreate}
-          className="bg-sky-500 text-white hover:bg-sky-600 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
-          data-testid="create-order-button"
-        >
-          <Plus className="w-4 h-4 mr-2" /> Krijo Porosi
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => setExportDialogOpen(true)}
+            variant="outline"
+            className="border-zinc-200 text-zinc-700 hover:bg-zinc-50 shadow-sm rounded-lg px-5 font-medium"
+            data-testid="export-orders-button"
+          >
+            <FileSpreadsheet className="w-4 h-4 mr-2" /> Eksporto Excel
+          </Button>
+          <Button
+            onClick={openCreate}
+            className="bg-sky-500 text-white hover:bg-sky-600 shadow-sm rounded-lg px-6 font-medium transition-transform active:scale-95"
+            data-testid="create-order-button"
+          >
+            <Plus className="w-4 h-4 mr-2" /> Krijo Porosi
+          </Button>
+        </div>
       </div>
 
       {/* Search */}
