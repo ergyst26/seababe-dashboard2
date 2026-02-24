@@ -51,6 +51,10 @@ export default function OrdersPage() {
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
   const fileInputRef = useRef(null);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
+  const [exportStartDate, setExportStartDate] = useState(null);
+  const [exportEndDate, setExportEndDate] = useState(null);
+  const [exporting, setExporting] = useState(false);
 
   const loadData = useCallback(async () => {
     try {
