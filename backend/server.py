@@ -154,7 +154,7 @@ async def get_me(user=Depends(get_current_user)):
 
 @api_router.get("/clients")
 async def get_clients(user=Depends(get_current_user)):
-    clients = await db.clients.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    clients = await db.clients.find({}, {"_id": 0}).sort("created_at", 1).to_list(1000)
     return clients
 
 @api_router.post("/clients")
