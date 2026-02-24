@@ -60,6 +60,7 @@ class ClientCreate(BaseModel):
     ig_name: str = ""
     address: str = ""
     phone: str = ""
+    photo: str = ""
 
 class ClientUpdate(BaseModel):
     name: Optional[str] = None
@@ -67,12 +68,14 @@ class ClientUpdate(BaseModel):
     ig_name: Optional[str] = None
     address: Optional[str] = None
     phone: Optional[str] = None
+    photo: Optional[str] = None
 
 class OrderCreate(BaseModel):
     client_id: str
     total_price: float
     shipping_type: str  # "paid" or "free"
     product_photo: str = ""
+    masa: str = ""
     notes: str = ""
 
 class OrderUpdate(BaseModel):
@@ -80,6 +83,7 @@ class OrderUpdate(BaseModel):
     total_price: Optional[float] = None
     shipping_type: Optional[str] = None
     product_photo: Optional[str] = None
+    masa: Optional[str] = None
     notes: Optional[str] = None
     status: Optional[str] = None
 
