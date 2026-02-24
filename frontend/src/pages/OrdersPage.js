@@ -22,8 +22,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 import {
-  Plus, Search, MoreHorizontal, Pencil, Trash2, ShoppingBag, Upload, ImageIcon, X, CheckCircle, Clock, Instagram, ZoomIn,
+  Plus, Search, MoreHorizontal, Pencil, Trash2, ShoppingBag, Upload, ImageIcon, X, CheckCircle, Clock, Instagram, ZoomIn, FileSpreadsheet, CalendarIcon,
 } from 'lucide-react';
+import { format } from 'date-fns';
 
 const MASA_OPTIONS = ['XS', 'S', 'M', 'L', 'XL'];
 
