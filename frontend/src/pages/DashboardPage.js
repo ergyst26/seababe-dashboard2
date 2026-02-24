@@ -43,8 +43,8 @@ export default function DashboardPage() {
       title: 'Porosi Gjithsej',
       value: stats?.total_orders || 0,
       icon: ShoppingBag,
-      color: 'text-orange-600',
-      bg: 'bg-orange-50',
+      color: 'text-sky-600',
+      bg: 'bg-sky-50',
     },
     {
       title: 'Në Pritje',
