@@ -73,7 +73,7 @@ class ClientUpdate(BaseModel):
 class OrderCreate(BaseModel):
     client_id: str
     total_price: float
-    shipping_type: str  # "paid" or "free"
+    shipping_type: str = "paid"
     product_photo: str = ""
     masa: str = ""
     notes: str = ""
