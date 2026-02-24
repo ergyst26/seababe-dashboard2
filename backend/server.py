@@ -122,17 +122,20 @@ async def register(user: UserCreate):
         raise HTTPException(status_code=400, detail="Ky email ekziston tashmë")
     
     hashed_password = pwd_context.hash(user.password)
+    # First user is admin, second is user
+    role = "admin" if user_count == 0 else "user"
     user_doc = {
         "id": str(uuid.uuid4()),
         "email": user.email,
         "password": hashed_password,
         "name": user.name,
+        "role": role,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     await db.users.insert_one(user_doc)
     
     token = create_access_token({"user_id": user_doc["id"]})
-    return {"token": token, "user": {"id": user_doc["id"], "email": user_doc["email"], "name": user_doc["name"]}}
+    return {"token": token, "user": {"id": user_doc["id"], "email": user_doc["email"], "name": user_doc["name"], "role": user_doc["role"]}}
 
 @api_router.post("/auth/login")
 async def login(user: UserLogin):
