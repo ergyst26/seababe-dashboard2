@@ -148,7 +148,7 @@ async def login(user: UserLogin):
 
 @api_router.get("/auth/me")
 async def get_me(user=Depends(get_current_user)):
-    return {"id": user["id"], "email": user["email"], "name": user["name"]}
+    return {"id": user["id"], "email": user["email"], "name": user["name"], "role": user.get("role", "admin")}
 
 # ============ CLIENT ROUTES ============
 
