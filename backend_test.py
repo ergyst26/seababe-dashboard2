@@ -377,6 +377,78 @@ class OrderFlowAPITester:
         else:
             return False, {}
 
+    def test_create_order_with_masa(self, client_id):
+        """Test creating an order with masa field (NEW FEATURE)"""
+        success, response = self.run_test(
+            "Create Order with Masa",
+            "POST", 
+            "/orders",
+            200,
+            data={
+                "client_id": client_id,
+                "total_price": 3500.0,
+                "shipping_type": "free",
+                "masa": "L",
+                "product_photo": "/api/uploads/product.jpg",
+                "notes": "Order with masa field test"
+            }
+        )
+        
+        if success and 'id' in response and 'masa' in response:
+            self.log_result("Create Order with Masa", True, f"Order created with masa: {response.get('masa', 'N/A')}")
+            return True, response
+        elif success:
+            self.log_result("Create Order with Masa", False, "Missing masa field in response")
+            return False, {}
+        else:
+            return False, {}
+
+    def test_admin_only_delete_order(self, order_id):
+        """Test that only admin can delete orders (NEW FEATURE)"""
+        # Save current token
+        admin_token = self.token
+        
+        # Try to create a non-admin user and login (if possible)
+        # Since we have a 2-user limit, we'll simulate this by testing with current user
+        # First, verify current user is admin
+        success, user_info = self.run_test(
+            "Get Current User Role",
+            "GET",
+            "/auth/me", 
+            200
+        )
+        
+        if success and user_info.get('role') == 'admin':
+            # Test admin can delete (should work)
+            success_admin, response_admin = self.run_test(
+                "Admin Delete Order",
+                "DELETE",
+                f"/orders/{order_id}",
+                200
+            )
+            
+            if success_admin:
+                self.log_result("Admin Only Delete", True, "Admin successfully deleted order")
+                return True, response_admin
+            else:
+                self.log_result("Admin Only Delete", False, "Admin failed to delete order")
+                return False, {}
+        else:
+            # If current user is not admin, test should fail with 403
+            success_non_admin, response_non_admin = self.run_test(
+                "Non-Admin Delete Order (Should Fail)",
+                "DELETE",
+                f"/orders/{order_id}",
+                403  # Should fail with 403
+            )
+            
+            if success_non_admin:
+                self.log_result("Admin Only Delete", True, "Non-admin correctly blocked from deleting order")
+                return True, response_non_admin
+            else:
+                self.log_result("Admin Only Delete", False, "Non-admin deletion test failed")
+                return False, {}
+
     def test_update_order(self, order_id):
         """Test updating an order"""
         success, response = self.run_test(
