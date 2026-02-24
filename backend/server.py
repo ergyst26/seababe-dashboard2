@@ -266,6 +266,9 @@ async def update_order(order_id: str, order_data: OrderUpdate, user=Depends(get_
 
 @api_router.delete("/orders/{order_id}")
 async def delete_order(order_id: str, user=Depends(get_current_user)):
+    # Only admin can delete orders
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Vetëm admini mund të fshijë porosi")
     result = await db.orders.delete_one({"id": order_id})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Porosia nuk u gjet")
