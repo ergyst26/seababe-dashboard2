@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Toaster } from '@/components/ui/sonner';
-import { LayoutDashboard, Users, ShoppingBag, LogOut, Package, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, ShoppingBag, LogOut, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_sales-hub-145/artifacts/29cym9d5_f8fb30e8-6bc2-4ccc-a18a-29acc7151e67.jpeg";
 
 const navItems = [
   { path: '/', label: 'Pasqyra', icon: LayoutDashboard },
@@ -37,10 +39,8 @@ export default function Layout({ children }) {
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-orange-600 flex items-center justify-center">
-                <Package className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-lg font-bold font-['Outfit'] text-zinc-900">OrderFlow</span>
+              <img src={LOGO_URL} alt="Seababe" className="w-9 h-9 rounded-lg object-contain" />
+              <span className="text-lg font-bold font-['Outfit'] text-zinc-900">Seababe</span>
             </div>
           </div>
 
@@ -54,7 +54,7 @@ export default function Layout({ children }) {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-orange-50 text-orange-700'
+                      ? 'bg-sky-50 text-sky-700'
                       : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                   }`
                 }
@@ -93,7 +93,7 @@ export default function Layout({ children }) {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-orange-50 text-orange-700'
+                      ? 'bg-sky-50 text-sky-700'
                       : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50'
                   }`
                 }
