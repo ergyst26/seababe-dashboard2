@@ -304,21 +304,30 @@ async def export_orders(
     except ValueError:
         raise HTTPException(status_code=400, detail="Formati i datës i gabuar. Përdorni YYYY-MM-DD")
 
-    # Get orders in date range
-    orders = await db.orders.find(
-        {"created_at": {"$gte": start.isoformat(), "$lte": end.isoformat()}},
-        {"_id": 0}
-    ).sort("created_at", 1).to_list(10000)
-
-    # Enrich with client info
-    for order in orders:
-        client = await db.clients.find_one({"id": order.get("client_id")}, {"_id": 0})
-        if client:
-            order["client_name"] = f"{client['name']} {client['surname']}"
-            order["client_ig"] = client.get("ig_name", "")
-        else:
-            order["client_name"] = "I panjohur"
-            order["client_ig"] = ""
+    # Get orders in date range using aggregation
+    pipeline = [
+        {"$match": {"created_at": {"$gte": start.isoformat(), "$lte": end.isoformat()}}},
+        {"$sort": {"created_at": 1}},
+        {"$lookup": {
+            "from": "clients",
+            "localField": "client_id",
+            "foreignField": "id",
+            "as": "client"
+        }},
+        {"$unwind": {"path": "$client", "preserveNullAndEmptyArrays": True}},
+        {"$addFields": {
+            "client_name": {
+                "$cond": {
+                    "if": "$client",
+                    "then": {"$concat": ["$client.name", " ", "$client.surname"]},
+                    "else": "I panjohur"
+                }
+            },
+            "client_ig": {"$ifNull": ["$client.ig_name", ""]}
+        }},
+        {"$project": {"_id": 0, "client": 0}}
+    ]
+    orders = await db.orders.aggregate(pipeline).to_list(10000)
 
     # Create Excel
     wb = Workbook()
