@@ -213,16 +213,28 @@ async def upload_file(file: UploadFile = File(...), user=Depends(get_current_use
 
 @api_router.get("/orders")
 async def get_orders(user=Depends(get_current_user)):
-    orders = await db.orders.find({}, {"_id": 0}).sort("created_at", 1).to_list(1000)
-    # Enrich with client info
-    for order in orders:
-        client = await db.clients.find_one({"id": order.get("client_id")}, {"_id": 0})
-        if client:
-            order["client_name"] = f"{client['name']} {client['surname']}"
-            order["client_ig"] = client.get("ig_name", "")
-        else:
-            order["client_name"] = "I panjohur"
-            order["client_ig"] = ""
+    pipeline = [
+        {"$sort": {"created_at": 1}},
+        {"$lookup": {
+            "from": "clients",
+            "localField": "client_id",
+            "foreignField": "id",
+            "as": "client"
+        }},
+        {"$unwind": {"path": "$client", "preserveNullAndEmptyArrays": True}},
+        {"$addFields": {
+            "client_name": {
+                "$cond": {
+                    "if": "$client",
+                    "then": {"$concat": ["$client.name", " ", "$client.surname"]},
+                    "else": "I panjohur"
+                }
+            },
+            "client_ig": {"$ifNull": ["$client.ig_name", ""]}
+        }},
+        {"$project": {"_id": 0, "client": 0}}
+    ]
+    orders = await db.orders.aggregate(pipeline).to_list(1000)
     return orders
 
 @api_router.post("/orders")
