@@ -385,14 +385,29 @@ async def get_dashboard_stats(user=Depends(get_current_user)):
     revenue_result = await db.orders.aggregate(pipeline).to_list(1)
     total_revenue = revenue_result[0]["total"] if revenue_result else 0
     
-    # Recent orders
-    recent_orders = await db.orders.find({}, {"_id": 0}).sort("created_at", -1).to_list(5)
-    for order in recent_orders:
-        client = await db.clients.find_one({"id": order.get("client_id")}, {"_id": 0})
-        if client:
-            order["client_name"] = f"{client['name']} {client['surname']}"
-        else:
-            order["client_name"] = "I panjohur"
+    # Recent orders with $lookup
+    recent_pipeline = [
+        {"$sort": {"created_at": -1}},
+        {"$limit": 5},
+        {"$lookup": {
+            "from": "clients",
+            "localField": "client_id",
+            "foreignField": "id",
+            "as": "client"
+        }},
+        {"$unwind": {"path": "$client", "preserveNullAndEmptyArrays": True}},
+        {"$addFields": {
+            "client_name": {
+                "$cond": {
+                    "if": "$client",
+                    "then": {"$concat": ["$client.name", " ", "$client.surname"]},
+                    "else": "I panjohur"
+                }
+            }
+        }},
+        {"$project": {"_id": 0, "client": 0}}
+    ]
+    recent_orders = await db.orders.aggregate(recent_pipeline).to_list(5)
     
     return {
         "total_clients": total_clients,
